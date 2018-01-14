@@ -54,9 +54,6 @@ def main():
     FOV = 45
     gluPerspective(FOV, (display[0]/display[1]), 0.1, 50.0)
 
-    glRotatef(4,0,1,0)
-    glTranslatef(0.0,0.0, -5)
-
     while True:
         # Find the face in the screen
         ret, img = cap.read()
@@ -68,7 +65,6 @@ def main():
             face_center = (x+w/2, y+h/2)
             face_r = (w+h)/2
 
-        print(face_center, face_r)
 
         cv2.imshow('img', img)
         k = cv2.waitKey(30) & 0xff
@@ -81,9 +77,9 @@ def main():
                 pygame.quit()
                 quit()
 
-        rot_degrees_y = -(face_center[0] - img.shape[0]/2) / (img.shape[0] / FOV)
+        rot_degrees_y = -(face_center[0] - img.shape[0]/2) / (img.shape[0] / FOV) + 5
         rot_degrees_x = -(face_center[1] - img.shape[1]/2) / (img.shape[1] / FOV)
-        view_dist = 2 + (img.shape[0] / face_r)
+        view_dist = 5 + (img.shape[0] / face_r) * 2
 
         glRotatef(rot_degrees_y,0,1,0)
         glRotatef(rot_degrees_x,1,0,0)
